@@ -21,33 +21,26 @@ from azure_clip_storage import AzureClipStorage, TrappingSamplesInStore, GoldSam
 
 """
 def create_analyzer_cfg_acr(cfg, template_path, out_path):
-
     create cfg file to be used by analyzer script (acr method)
     :param cfg:
     :param template_path:
     :param out_path:
     :return:
-
     print("Start creating config file for result_parser")
     config = {}
-
     config['q_num'] = int(cfg['create_input']['number_of_clips_per_session']) + \
                       int(cfg['create_input']['number_of_trapping_per_session']) + \
                       int(cfg['create_input']['number_of_gold_clips_per_session'])
-
     config['max_allowed_hits'] = cfg['acr_html']['allowed_max_hit_in_project']
-
     config['quantity_hits_more_than'] = cfg['acr_html']['quantity_hits_more_than']
     config['quantity_bonus'] = cfg['acr_html']['quantity_bonus']
     config['quality_top_percentage'] = cfg['acr_html']['quality_top_percentage']
     config['quality_bonus'] = cfg['acr_html']['quality_bonus']
-
     with open(template_path, 'r') as file:
         content = file.read()
         file.seek(0)
     t = Template(content)
     cfg_file = t.render(cfg=config)
-
     with open(out_path, 'w') as file:
         file.write(cfg_file)
         file.close()
@@ -91,7 +84,7 @@ def create_analyzer_cfg_general(cfg, cfg_section, template_path, out_path):
     with open(out_path, 'w') as file:
         file.write(cfg_file)
         file.close()
-    print("  [{out_path}] is created") 
+    print(f"  [{out_path}] is created")
 
 
 def create_analyzer_cfg_dcr_ccr(cfg, template_path, out_path):
@@ -128,7 +121,7 @@ def create_analyzer_cfg_dcr_ccr(cfg, template_path, out_path):
     with open(out_path, 'w') as file:
         file.write(cfg_file)
         file.close()
-    print("  [{out_path}] is created")
+    print(f"  [{out_path}] is created")
 
 
 async def create_hit_app_ccr_dcr(cfg, template_path, out_path, training_path, cfg_g, general_cfg):
@@ -192,7 +185,7 @@ async def create_hit_app_ccr_dcr(cfg, template_path, out_path, training_path, cf
 
     with open(out_path, 'w') as file:
         file.write(html)
-    print("  [{out_path}] is created")
+    print(f"  [{out_path}] is created")
 
 
 async def create_hit_app_acr(cfg, template_path, out_path, training_path, trap_path, cfg_g, cfg_trapping_store,
@@ -270,7 +263,7 @@ async def create_hit_app_acr(cfg, template_path, out_path, training_path, trap_p
 
     with open(out_path, 'w') as file:
         file.write(html)
-    print("  [{out_path}] is created")
+    print(f"  [{out_path}] is created")
 
 
 async def create_hit_app_p835(cfg, template_path, out_path, training_path, trap_path, cfg_g, cfg_trapping_store, general_cfg):
@@ -347,7 +340,7 @@ async def create_hit_app_p835(cfg, template_path, out_path, training_path, trap_
 
     with open(out_path, 'w') as file:
         file.write(html)
-    print("  [{out_path}] is created")
+    print(f"  [{out_path}] is created")
 
 
 async def prepare_csv_for_create_input(cfg, test_method, clips, gold, trapping, general):
